@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.mcwebsite.blog.mapper.AuthorityMapper">
+
+    <select id="selectByUserId" resultType="Authority">
+        SELECT a.id, a.name FROM blog_authority a
+        INNER JOIN blog_user_authority bua ON bua.authority_id = a.id
+        WHERE bua.user_id  = #{userId}
+    </select>
+</mapper>

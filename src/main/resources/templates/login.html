@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/header :: header}">
+
+</head>
+<body>
+<div class="container">
+    <form class="form-signin" th:action="@{/login}" action="/login" method="post">
+        <h2 class="form-signin-heading">登录</h2>
+        <span th:text="${username}" class="error" ></span>
+        <span th:text="${password}" class="error" ></span>
+        <label for="inputUsername" class="sr-only">用户名</label>
+        <input type="username" name="username" id="inputUsername" class="form-control" placeholder="用户名或邮箱" required
+               autofocus>
+        <label for="inputPassword" class="sr-only">密码</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="密码" required>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="记住我" name="remember-me"> 记住我
+            </label>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+        </div>
+    </form>
+</div>
+<div th:replace="~{fragments/footer :: footer}">...</div>
+</body>
+</html>

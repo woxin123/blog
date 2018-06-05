@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.mcwebsite.blog.mapper.CatalogMapper">
+    <resultMap id="catalogMap" type="Catalog">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="userId" column="user_id" />
+    </resultMap>
+
+    <select id="selectCatalogByUserId" resultMap="catalogMap">
+        SELECT id, user_id, `name` FROM blog_catalog WHERE user_id = #{userId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO blog_catalog VALUES
+          (#{userId, #{name})
+    </insert>
+
+    <update id="updateById" >
+        UPDATE blog_catalog SET name = #{name} WHERE user_id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM blog_catalog WHERE id = #{id}
+    </delete>
+</mapper>
