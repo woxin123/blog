@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.mcwebsite.blog.mapper.BlogMapper">
+
+    <resultMap id="blogMap" type="Blog">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="tags" property="tags" />
+        <result column="summary" property="summary" />
+        <result column="content" property="content" />
+        <result column="html_content" property="htmlContent" />
+        <result column="create_time" property="createTime" />
+        <result column="mod_time" property="modTime" />
+        <result column="comment_num" property="commentNum" />
+        <result column="like_num" property="likeNum" />
+        <result column="dislike_num" property="dislikeNum" />
+        <association column="{userId = user_id}" property="user" fetchType="lazy"
+                     select="top.mcwebsite.blog.mapper.UserMapper.selectUserById" />
+        <association column="{catalogId = catalog_id}" property="catalog" fetchType="lazy"
+                     select="top.mcwebsite.blog.mapper.CatalogMapper.selectCatalogById" />
+    </resultMap>
+
+    <!-- 插入blog -->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" >
+        INSERT INTO blog(user_id, catalog_id, title, tags, summary, content, html_content, create_time,
+            mod_time, comment_num, like_num, dislike_num) VALUES
+            (#{userId}, #{catalogId}, #{title}, #{tags}, #{summary}, #{content}, #{htmlContent},
+            #{createTime}, #{modTime}, #{readNum}, #{commentNum}, #{likeNum}, #{dislikeNum})
+    </insert>
+
+    <!-- 通过查询blog -->
+    <select id="selectByUserId" resultMap="blogMap" >
+        SELECT (user_id, catalog_id, title, tags, summary, content, html_content, create_time,
+            mod_time, comment_num, like_num, dislike_num) FROM blog WHERE id = #{userId}
+    </select>
+
+    <!-- 通过userId和catalogId查询 -->
+    <select id="selectByUserIdAndCatalogId" resultMap="blogMap">
+       SELECT (user_id, catalog_id, title, tags, summary, content, html_content, create_time,
+            mod_time, comment_num, like_num, dislike_num) FROM blog WHERE id = #{userId} AND catalog_id = #{catalogId}
+    </select>
+
+</mapper>

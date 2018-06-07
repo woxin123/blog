@@ -14,7 +14,7 @@
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" >
         INSERT INTO blog_catalog VALUES
-          (#{userId, #{name})
+          (#{userId}, #{name})
     </insert>
 
     <update id="updateById" >
@@ -24,4 +24,8 @@
     <delete id="deleteById">
         DELETE FROM blog_catalog WHERE id = #{id}
     </delete>
+
+    <select id="selectCatalogById" resultMap="catalogMap">
+        SELECT id, user_id, `name` FROM blog_catalog WHERE id = #{catalogId}
+    </select>
 </mapper>
