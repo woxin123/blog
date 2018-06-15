@@ -12,6 +12,7 @@
         <result column="html_content" property="htmlContent" />
         <result column="create_time" property="createTime" />
         <result column="mod_time" property="modTime" />
+        <result column="read_num" property="readNum"/>
         <result column="comment_num" property="commentNum" />
         <result column="like_num" property="likeNum" />
         <result column="dislike_num" property="dislikeNum" />
@@ -22,23 +23,50 @@
     </resultMap>
 
     <!-- 插入blog -->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true" >
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO blog(user_id, catalog_id, title, tags, summary, content, html_content, create_time,
-            mod_time, comment_num, like_num, dislike_num) VALUES
-            (#{userId}, #{catalogId}, #{title}, #{tags}, #{summary}, #{content}, #{htmlContent},
+            mod_time, read_num, comment_num, like_num, dislike_num) VALUES
+            (#{user.id}, #{catalog.id}, #{title}, #{tags}, #{summary}, #{content}, #{htmlContent},
             #{createTime}, #{modTime}, #{readNum}, #{commentNum}, #{likeNum}, #{dislikeNum})
     </insert>
 
+    <!-- 通过id查询 -->
+    <select id="selectById" resultMap="blogMap" >
+        SELECT id, user_id, catalog_id, title, tags, summary, content, html_content, create_time,
+            mod_time, read_num,comment_num, like_num, dislike_num FROM blog WHERE id = #{id}
+    </select>
+
+    <!-- 查询全部 -->
+    <select id="selectAll" resultMap="blogMap" >
+        SELECT id, user_id, catalog_id, title, tags, summary, content, html_content, create_time,
+            mod_time, read_num,comment_num, like_num, dislike_num FROM blog
+    </select>
+
     <!-- 通过查询blog -->
     <select id="selectByUserId" resultMap="blogMap" >
-        SELECT (user_id, catalog_id, title, tags, summary, content, html_content, create_time,
-            mod_time, comment_num, like_num, dislike_num) FROM blog WHERE id = #{userId}
+        SELECT id, user_id, catalog_id, title, tags, summary, content, html_content, create_time,
+            mod_time, read_num,comment_num, like_num, dislike_num FROM blog WHERE user_id = #{userId}
     </select>
 
     <!-- 通过userId和catalogId查询 -->
     <select id="selectByUserIdAndCatalogId" resultMap="blogMap">
-       SELECT (user_id, catalog_id, title, tags, summary, content, html_content, create_time,
-            mod_time, comment_num, like_num, dislike_num) FROM blog WHERE id = #{userId} AND catalog_id = #{catalogId}
+       SELECT id, user_id, catalog_id, title, tags, summary, content, html_content, create_time,
+            mod_time, read_num,comment_num, like_num, dislike_num FROM blog WHERE id = #{userId} AND catalog_id = #{catalogId}
     </select>
+
+    <delete id="deleteById" >
+        DELETE FROM blog WHERE id=#{id}
+    </delete>
+
+    <!-- 增加阅读量 -->
+    <update id="updateReadNumById" >
+        UPDATE blog SET read_num = #{readNum} WHERE id = #{id}
+    </update>
+
+    <!-- 更新博客 -->
+    <update id="update" useGeneratedKeys="true" keyProperty="id">
+        UPDATE blog set title = #{title}, content = #{content}, html_content = #{htmlContent}, mod_time = #{modTime}
+        WHERE id = #{id}
+    </update>
 
 </mapper>

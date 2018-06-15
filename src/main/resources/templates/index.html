@@ -1,13 +1,74 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="~{fragments/header :: header}" >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="~{fragments/header :: header}">
 </head>
 <body>
-<div class="container">
-    <form class="form">
+<!-- 页面的内容 -->
+<div class="container blog-content-container">
+    <!-- 行 -->
+    <div class="row">
+        <!-- 占比8/12 -->
+        <div class="col-md-8">
+            <div id="mainContainer">
+                <div id="mainContainerRepleace">
+                    <div class="card mb-4" th:each="blog : ${blogs}">
+                        <div class="card-block">
+                            <h2 class="card-title">
+                                <!-- 头像 -->
+                                <span>
+                                    <a href="/u/woxin" title="woxin" th:href="'/u/' + ${blog.user.username}"
+                                       th:title="${blog.user.username}">
+                                        <img src="image/default-avatr.jpg" class="blog-avatar-50"/>
+                                    </a>
+                                </span>
+                                <!-- 标题 -->
+                                <a href="/u/woxin/blogs/1" title="woxin" th:href="'/u/' + ${blog.user.username} + '/blogs/' + ${blog.id}"
+                                   th:title="${blog.title}" th:text="${blog.title}">
 
-    </form>
+                                </a>
+                            </h2>
+                            <!-- 摘要 -->
+                            <p class="card-text" th:text="${blog.summary}"></p>
+                            <!-- 用户+时间 -->
+                            <div class="card-text">
+                                <!-- 用户 -->
+                                <a href="/u/woxin" th:href="'/u/' + ${blog.user.username}" class="card-link"
+                                   th:text="${blog.user.username }">woxin</a>
+                                <i class="fa fa-eye" aria-hidden="true">[[${blog.readNum}]]</i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div th:replace="~{fragments/page :: page}">...</div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        <!-- 右侧栏目 -->
+        <div class="col-md-4">
+            <div>
+                <!-- 热门标签 -->
+                <div class="card">
+                    <h5 class="card-header">
+                        <i class="fa fa-tags" aria-hidden="true"></i>热门标签
+                    </h5>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!--<a th:each="tag, tagStat : ${tags}" th:object="${tag}" href="/blog?keyword=1"-->
+                            <a href="/">ArrayList</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div th:replace="~{fragments/footer :: footer}">...</div>
+<script src="../../js/index.js" th:src="@{/js/index.js}"></script>
 </body>
 </html>

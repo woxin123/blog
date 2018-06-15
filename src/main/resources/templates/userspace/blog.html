@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="~{fragments/header :: header}">
+</head>
+<body>
+<div class="container blog-content-container">
+    <div class="row">
+        <div class="col-md-9">
+
+            <div class="card mb-4">
+                <div class="card-block">
+                    <h2 class="card-title">
+                        <span>
+                            <a href="/u/woxin" title="woxin" th:href="'/u' + ${blogModel.user.username}"
+                               th:title="${blogModel.user.username}">
+                               <img src="/image/default-avatr.jpg"
+                                    class="blog-avatar-50">
+                            </a>
+                        </span>
+                        <a href="/u/woxin/blogs/1" class="card-link" title="woxin"
+                           th:title="'/u/' + ${blogModel.user.username}"
+                           th:href="'/u/' + ${blogModel.user.username} + '/blogs/' + ${blogModel.id}"
+                           th:text="${blogModel.title}">
+                        </a>
+                    </h2>
+                    <!-- 用户何时发布这片博客 -->
+                    <div class="card-text">
+                        <a href="/u/woxin" th:href="'/' + ${blogModel.user.username}" class="card-link"
+                           th:text="${blogModel.user.username}">发表于</a>[[${createTime}]]
+                        <i class="fa fa-eye" aria-hidden="true">[[${blogModel.readNum}]]</i>
+                        <i class="fa fa-heart-o" aria-hidden="true">[[${blogModel.likeNum}]]</i>
+                        <i class="fa fa-comment-o" aria-hidden="true">[[${blogModel.commentNum}]]</i>
+                        <a href="/u/woxin" th:if="${isBlogOwner}" th:href="'/u/' + ${blogModel.user.username} + '/blogs/edit/' + ${blogModel.id}">编辑</a>
+                        <a href="javascript:void(0);" th:if="${isBlogOwner}" class="btn btn-primary float-right blog-delete-blog">删除</a>
+                    </div>
+                    <hr/>
+                    <!-- 文章内容 -->
+                    <article class="post-content" th:utext="${blogModel.htmlContent}">
+
+                    </article>
+
+                    <hr/>
+                    <div class="card-block">
+                        <h5>分类：<span th:text="${blogModel.catalog.name}"></span></h5>
+                        <h5>标签：<span th:text="${blogModel.tags}"></span></h5>
+                    </div>
+
+                    <div class="card-block">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 文章目录 -->
+        <div class="col-md-3">
+            <div class="card">
+                <h5 class="card-header">
+                    <i class="fa fa-bars" aria-hidden="true"></i>文章目录
+                </h5>
+                <div class="card-block">
+                    <div class="row">
+                        <div id="catalog" class="col-lg-12">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/footer :: footer}">...</div>
+<!-- JavaScript -->
+<script th:inline="javascript">
+    var blogId = [[${blogModel.id}]];
+    var blogUrl = '/u/' + [[${blogModel.user.username}]] + '/blogs/' + [[${blogModel.id}]];
+</script>
+<script src="../../js/userspace/blog.js" th:src="@{/js/userspace/blog.js}"></script>
+</body>
+</html>

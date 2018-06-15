@@ -8,13 +8,23 @@ public interface CatalogMapper {
 
     /**
      * 根据用户Id获取目录
+     *
      * @param userId
      * @return
      */
     List<Catalog> selectCatalogByUserId(Long userId);
 
     /**
+     * 根据id获取catalog
+     *
+     * @param id
+     * @return
+     */
+    Catalog selectCatalogById(Long id);
+
+    /**
      * 添加目录
+     *
      * @param catalog
      * @return
      */
@@ -22,6 +32,7 @@ public interface CatalogMapper {
 
     /**
      * 重命名目录
+     *
      * @param catalog
      * @return
      */
@@ -29,6 +40,7 @@ public interface CatalogMapper {
 
     /**
      * 根据用户id删除目录
+     *
      * @param catalog
      * @return
      */

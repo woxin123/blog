@@ -56,4 +56,14 @@ public class CatalogServiceImpl implements CatalogService {
     public boolean deleteById(Catalog catalog) {
         return catalogMapper.deleteById(catalog) == 1;
     }
+
+    /**
+     * 根据id获取catalog
+     * @param id
+     * @return
+     */
+    @Override
+    public Catalog findCatalogById(Long id) {
+        return catalogMapper.selectCatalogById(id);
+    }
 }

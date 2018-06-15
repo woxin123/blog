@@ -9,9 +9,11 @@ public class MainController {
 
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
     public String index(Model model) {
+        // 封装标题
         model.addAttribute("title", "标题");
-        return "index";
+        return "forward:/blogs";
     }
+
 
     @GetMapping("/login")
     public String login(Model model) {
@@ -23,4 +25,10 @@ public class MainController {
     public String loginError(Model model) {
         return "login";
     }
+
+    @GetMapping("/edit")
+    public String edit() {
+        return "user/edit";
+    }
+
 }

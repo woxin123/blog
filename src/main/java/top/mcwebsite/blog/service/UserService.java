@@ -7,5 +7,6 @@ public interface UserService {
     boolean isExistUsername(String username);
     boolean isExistEmail(String email);
     boolean activeUser(String username);
+    boolean updateByUserId(User user);
     User findUserByUsername(String username);
 }

@@ -14,4 +14,6 @@ public interface CatalogService {
 
     boolean deleteById(Catalog catalog);
 
+    Catalog findCatalogById(Long id);
+
 }

@@ -48,6 +48,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public boolean updateByUserId(User user) {
+        return userMapper.update(user) == 1;
+    }
+
+    @Override
     public User findUserByUsername(String username) {
         return userMapper.selectUserByUsername(username);
     }

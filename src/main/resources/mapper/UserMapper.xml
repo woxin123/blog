@@ -31,8 +31,8 @@
     <update id="update">
         UPDATE blog_user
         <set>
-            <if test="userName != null and userName != ''">
-                user_name = #{userName},
+            <if test="username != null and username != ''">
+                user_name = #{username},
             </if>
             <if test="email != null and email != ''">
                 email = #{email},
@@ -41,10 +41,9 @@
                 avatr = #{avatr},
             </if>
             <if test="password != null and password != ''">
-                password = #{password}
+                password = #{password},
             </if>
         </set>
-        id = #{id}
         WHERE id = #{id}
     </update>
 

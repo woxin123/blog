@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/editormd.css}"  href="../../css/editormd.css">
+</head>
+<body>
+<div id="my-editormd" >
+    <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc" ></textarea>
+</div>
+<script src="../../js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+<script src="../../js/editormd.min.js" th:src="@{/js/editormd.min.js}"></script>
+<script>
+    editormd("my-editormd", {//注意1：这里的就是上面的DIV的id属性值
+        width: "90%",
+        height: 640,
+        syncScrolling: "single",
+        path: "/lib/",//注意2：你的路径
+    });
+</script>
+</body>
+</html>
